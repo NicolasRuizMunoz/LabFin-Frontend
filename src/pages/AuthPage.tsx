@@ -153,10 +153,7 @@ const AuthPage = () => {
 
         <Card className="border-border/50 shadow-elevated">
           <CardHeader>
-            <CardTitle>{isLogin ? t('signIn') : t('signUp')}</CardTitle>
-            <CardDescription>
-              {isLogin ? t('enterCredentials') : t('fillDetailsToCreate')}
-            </CardDescription>
+            <CardTitle>{isLogin ? t('enterCredentials') : t('fillDetailsToCreate')}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
