@@ -16,7 +16,6 @@ const DEV_BYPASS_PASSWORDS = import.meta.env.DEV ? new Set(['qwerty']) : new Set
 const PASSWORD_RULES = [
   { key: 'length', label: 'Al menos 8 caracteres', test: (p: string) => p.length >= 8 },
   { key: 'upper', label: 'Al menos 1 mayúscula', test: (p: string) => /[A-Z]/.test(p) },
-  { key: 'upper', label: 'Al menos 1 BorjaComment', test: (p: string) => /[A-Z]/.test(p) },
   { key: 'number', label: 'Al menos 1 número', test: (p: string) => /[0-9]/.test(p) },
   { key: 'symbol', label: 'Al menos 1 símbolo', test: (p: string) => /[!@#$%^&*()_+\-=\[\]{}|;':",.\/<>?`~]/.test(p) },
 ];
