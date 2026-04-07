@@ -25,18 +25,20 @@ const baseNavItems = [
 ];
 
 const Navigation = () => {
+  const isDemoMode = import.meta.env.VITE_DEMO_MODE !== 'false';
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const canAccessApp = isDemoMode || Boolean(user);
 
   const navItems = useMemo(() => {
     const items = [...baseNavItems];
-    if (user && isEvalitics(user.role)) {
+    if (isDemoMode || (user && isEvalitics(user.role))) {
       items.push({ name: 'Admin', href: '/admin', icon: ShieldCheck });
     }
     return items;
-  }, [user]);
+  }, [isDemoMode, user]);
 
   const isActive = (href: string) =>
     href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
@@ -56,7 +58,7 @@ const Navigation = () => {
 
         {/* Desktop nav items — left (solo si está autenticado) */}
         <div className="hidden lg:flex items-center space-x-1">
-          {user && navItems.map(({ name, href, icon: Icon }) => (
+          {canAccessApp && navItems.map(({ name, href, icon: Icon }) => (
             <Button
               key={href}
               variant={isActive(href) ? 'default' : 'ghost'}
@@ -139,7 +141,7 @@ const Navigation = () => {
             </SheetTrigger>
             <SheetContent side="right" className="w-64 z-50">
               <div className="flex flex-col space-y-2 mt-6">
-                {user && navItems.map(({ name, href, icon: Icon }) => (
+                {canAccessApp && navItems.map(({ name, href, icon: Icon }) => (
                   <Button
                     key={href}
                     variant={isActive(href) ? 'default' : 'ghost'}
